@@ -1,0 +1,95 @@
+<body>
+
+<h2 id="question"></h2>
+
+<div id="answers"></div>
+
+<script>
+  const quiz = [
+{
+    question: "What is JavaScript?",
+    answers: ["Language", "Food", "Animal"],
+    correct: 0
+},
+{
+    question: "2 + 2 = ?",
+    answers: ["3", "4", "5"],
+    correct: 1
+},
+{
+    question: "HTML stands for?",
+    answers: [
+        "Hyper Text Markup Language",
+        "Home Tool Markup Language",
+        "High Text Language"
+    ],
+    correct: 0
+},
+{
+    question: "CSS is used for?",
+    answers: ["Styling", "Database", "Server"],
+    correct: 0
+}
+];
+
+let current = 0;
+let score = 0;
+
+const questionEl = document.getElementById("question");
+const answersEl = document.getElementById("answers");
+
+function showQuestion() {
+
+    if(current === quiz.length) {
+
+        let remark = "";
+
+        if(score >= 3){
+            remark = "Excellent";
+        }else if(score >= 2){
+            remark = "Good";
+        }else{
+            remark = "Needs Improvement";
+        }
+
+        document.body.innerHTML =
+        `<h1>Score: ${score}/${quiz.length}</h1>
+        <h2>${remark}</h2>`;
+
+        return;
+    }
+
+    const q = quiz[current];
+
+    questionEl.textContent = q.question;
+    answersEl.innerHTML = "";
+
+    q.answers.forEach((answer,index)=>{
+        const btn = document.createElement("button");
+
+        btn.textContent = answer;
+
+        btn.onclick = ()=>{
+
+            if(index === q.correct){
+                score++;
+                document.body.style.backgroundColor = "green";
+            }else{
+                document.body.style.backgroundColor = "red";
+            }
+
+            setTimeout(()=>{
+                document.body.style.backgroundColor = "white";
+                current++;
+                showQuestion();
+            },1000);
+        };
+
+        answersEl.appendChild(btn);
+    });
+}
+
+showQuestion();
+</script>
+
+</body>
