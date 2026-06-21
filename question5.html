@@ -1,0 +1,64 @@
+<form>
+
+<input
+id="username"
+placeholder="Username">
+
+<span id="userMsg"></span>
+
+<br><br>
+
+<input
+id="password"
+type="password"
+placeholder="Password">
+
+<span id="passMsg"></span>
+
+<br><br>
+
+<input
+id="phone"
+placeholder="+234XXXXXXXXXX">
+
+<span id="phoneMsg"></span>
+
+</form>
+
+<script>
+  const username = document.getElementById("username");
+const password = document.getElementById("password");
+const phone = document.getElementById("phone");
+
+username.addEventListener("input", ()=>{
+
+    const regex = /^[a-zA-Z0-9]{5,15}$/;
+
+    document.getElementById("userMsg").textContent =
+    regex.test(username.value)
+    ? "Valid"
+    : "Invalid";
+});
+
+password.addEventListener("input", ()=>{
+
+    const regex =
+    /^(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/;
+
+    document.getElementById("passMsg").textContent =
+    regex.test(password.value)
+    ? "Strong Password"
+    : "Weak Password";
+});
+
+phone.addEventListener("input", ()=>{
+
+    const regex =
+    /^\+234\d{10}$/;
+
+    document.getElementById("phoneMsg").textContent =
+    regex.test(phone.value)
+    ? "Valid Number"
+    : "Invalid Number";
+});
+</script>
