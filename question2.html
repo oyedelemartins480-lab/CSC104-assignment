@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Shopping Cart</title>
+</head>
+<body>
+
+<h2>Products</h2>
+
+<div id="products"></div>
+
+<h2>Cart</h2>
+
+<div id="cart"></div>
+
+<h3>Total: ₦<span id="total">0</span></h3>
+
+<script>
+  const products = [
+    { id: 1, name: "Laptop", price: 300000 },
+    { id: 2, name: "Phone", price: 150000 },
+    { id: 3, name: "Headset", price: 20000 },
+    { id: 4, name: "Keyboard", price: 15000 },
+    { id: 5, name: "Mouse", price: 10000 }
+];
+
+let cart = [];
+
+const productDiv = document.getElementById("products");
+const cartDiv = document.getElementById("cart");
+const totalSpan = document.getElementById("total");
+
+function displayProducts() {
+    products.forEach(product => {
+        productDiv.innerHTML += `
+            <p>
+                ${product.name} - ₦${product.price}
+                <button onclick="addToCart(${product.id})">
+                    Add To Cart
+                </button>
+            </p>
+        `;
+    });
+}
+
+function addToCart(id) {
+    const product = products.find(p => p.id === id);
+    cart.push(product);
+    renderCart();
+}
+
+function removeFromCart(index) {
+    cart.splice(index, 1);
+    renderCart();
+}
+
+function renderCart() {
+    cartDiv.innerHTML = "";
+
+    let total = 0;
+
+    cart.forEach((item, index) => {
+        total += item.price;
+
+        cartDiv.innerHTML += `
+            <p>
+                ${item.name} - ₦${item.price}
+                <button onclick="removeFromCart(${index})">
+                    Remove
+                </button>
+            </p>
+        `;
+    });
+
+    totalSpan.textContent = total;
+}
+
+displayProducts();
+</script>
+
+</body>
+</html>
